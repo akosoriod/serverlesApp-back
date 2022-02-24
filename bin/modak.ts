@@ -1,21 +1,54 @@
 #!/usr/bin/env node
-import 'source-map-support/register';
-import * as cdk from 'aws-cdk-lib';
-import { ModakStack } from '../lib/modak-stack';
+import {App} from '@aws-cdk/core';
+import {modakPipelineStack} from "../lib/modak-pipeline-stack";
+import {modakInfrastructureStack} from "../lib/modak-infrastructure-stack";
+import {modakDatabaseStack} from "../lib/modak-database-stack";
+import {envDevelopment, envStaging, envMaster} from "./env";
 
-const app = new cdk.App();
-new ModakStack(app, 'ModakStack', {
-  /* If you don't specify 'env', this stack will be environment-agnostic.
-   * Account/Region-dependent features and context lookups will not work,
-   * but a single synthesized template can be deployed anywhere. */
 
-  /* Uncomment the next line to specialize this stack for the AWS Account
-   * and Region that are implied by the current CLI configuration. */
-  // env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
+const app = new App();
 
-  /* Uncomment the next line if you know exactly what Account and Region you
-   * want to deploy the stack to. */
-  // env: { account: '123456789012', region: 'us-east-1' },
+// DEVELOPMENT
 
-  /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+new modakDatabaseStack(app, `${envDevelopment.PROJECT_NAME}-V${envDevelopment.PROJECT_VERSION}-DatabaseStack-development`, envDevelopment, {
+     env: envDevelopment.AWS_ENVIRONMENT
 });
+
+new modakInfrastructureStack(app, `${envDevelopment.PROJECT_NAME}-V${envDevelopment.PROJECT_VERSION}-InfrastructureStack-development`, envDevelopment, {
+    env: envDevelopment.AWS_ENVIRONMENT
+});
+
+new modakPipelineStack(app, `${envDevelopment.PROJECT_NAME}-V${envDevelopment.PROJECT_VERSION}-PipelineStack-development`, envDevelopment, {
+    env: envDevelopment.AWS_ENVIRONMENT
+});
+
+
+// STAGING
+/*
+new modakDatabaseStack(app, `${envStaging.PROJECT_NAME}-V${envStaging.PROJECT_VERSION}-DatabaseStack-staging`, envStaging, {
+    env: envStaging.AWS_ENVIRONMENT
+});
+
+new modakInfrastructureStack(app, `${envStaging.PROJECT_NAME}-V${envStaging.PROJECT_VERSION}-InfrastructureStack-staging`, envStaging, {
+    env: envStaging.AWS_ENVIRONMENT
+});
+
+new modakPipelineStack(app, `${envStaging.PROJECT_NAME}-V${envStaging.PROJECT_VERSION}-PipelineStack-staging`, envStaging, {
+    env: envStaging.AWS_ENVIRONMENT
+});
+*/
+// MASTER
+/*
+new modakDatabaseStack(app, `${envMaster.PROJECT_NAME}-V${envMaster.PROJECT_VERSION}-DatabaseStack-master`, envMaster, {
+    env: envMaster.AWS_ENVIRONMENT
+});
+
+new modakInfrastructureStack(app, `${envMaster.PROJECT_NAME}-V${envMaster.PROJECT_VERSION}-InfrastructureStack-master`, envMaster, {
+    env: envMaster.AWS_ENVIRONMENT
+});
+
+new modakPipelineStack(app, `${envMaster.PROJECT_NAME}-V${envMaster.PROJECT_VERSION}-PipelineStack-master`, envMaster, {
+    env: envMaster.AWS_ENVIRONMENT
+});
+*/
+app.synth();
