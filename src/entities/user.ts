@@ -2,7 +2,7 @@ import { getDB,  executeTransactWrite,getClient } from "../helpers/dynamoHelper"
 
 const TABLE_NAME = process.env.TABLE_NAME || "";
 
-export const user = async (username:string): Promise<any> => {
+export const userInfo = async (username:string): Promise<any> => {
   const PK: string = "USER";
   const SK: string = "USER#" + username;
   const params = {
