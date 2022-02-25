@@ -51,8 +51,8 @@ export class modakDatabaseStack extends cdk.Stack {
             sortKey: {name: 'PK', type: dynamoDb.AttributeType.STRING},
             projectionType: dynamoDb.ProjectionType.ALL,
         });
-        
-        new Seeder(this, 'seeder', {
+        const seederStack = new Stack(scope, 'seeder-stack');
+        new Seeder(seederStack, 'seeder', {
         table,
         setup: [
             { PK: 'USER', SK: 'USER#Mark', dob: '1014589797', gender: 'Male', role: 'Student' },
@@ -71,8 +71,10 @@ export class modakDatabaseStack extends cdk.Stack {
             { PK: 'LESSON#Spanish#2', SK: 'USER#Rachel'},
             { PK: 'LESSON#Spanish#2', SK: 'USER#Mark'}
         ],
+        teardown: [],
         refreshOnUpdate: true,
         });
+        seederStack.addDependency(this);
 
     }
 }
