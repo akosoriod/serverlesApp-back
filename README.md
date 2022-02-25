@@ -1,14 +1,13 @@
-# Welcome to your CDK TypeScript project!
+# Welcome to modak app - backend
 
-This is a blank project for TypeScript development with CDK.
+### AWS 
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+* `cdk synth modak-V1-InfrastructureStack-development  > template.yaml` Emit the synthesized CloudFormation template
+* `cdk deploy  modak-V1-InfrastructureStack-development` Create Api in AWS
+* `cdk deploy  modak-V1-DatabaseStack-development` Create dynamoDB and execute seeders
+* `cdk deploy  modak-V1-PipelineStack-development` Create pipeline 
 
-## Useful commands
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+ ### Start the Api locally 
+- `cdk synth TPChain-V1-InfrastructureStack-development --no-staging > template.yaml` Emit the synthesized CloudFormation template
+- `sam local start-api -l logs.log --docker-network dynamo_local_tpchainNetwork` Start Api with logs file and docker network

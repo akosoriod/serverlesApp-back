@@ -119,20 +119,20 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.nftsRoute, path: 'friends', method: "GET"}
+        {baseRoute: opt.routes.friendsRoute, path: 'friends', method: "GET"}
     )
 
     const users = () => getNodeLambdaFunction(
         stack,
         "users",
-        "users/users.ts",
+        "user/users.ts",
         env,
         {
             environment: {
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.nftsRoute, path: 'users', method: "GET"}
+        {baseRoute: opt.routes.userRoute, path: 'users', method: "GET"}
     )
 
 
@@ -147,7 +147,7 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.nftsRoute, path: 'userFriends', method: "GET"}
+        {baseRoute: opt.routes.friendsRoute, path: 'userFriends', method: "GET"}
     )
     
     const lessons = () => getNodeLambdaFunction(
@@ -160,8 +160,9 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.nftsRoute, path: 'lessons', method: "GET"}
+        {baseRoute: opt.routes.lessonsRoute, path: 'lessons', method: "GET"}
     )
+
 
     const userLessons = () => getNodeLambdaFunction(
         stack,
@@ -173,16 +174,15 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.nftsRoute, path: 'userLessons', method: "GET"}
+        {baseRoute: opt.routes.lessonsRoute, path: 'userLessons', method: "GET"}
     )
  
-
     const allLambdas: { [key: string]: () => NodejsFunction } = {
         friends,
         users,
         userFriends,
         lessons,
-        userLessons,
+        userLessons
     }
 
     return getFunctionsForSynth(allLambdas, opt.onlySynth || []);

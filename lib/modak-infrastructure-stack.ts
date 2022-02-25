@@ -1,6 +1,6 @@
 import * as cdk from '@aws-cdk/core';
-import * as lambdaEventSources from '@aws-cdk/aws-lambda-event-sources';
 import {getLambdas} from "./services/lambda";
+import {getIAMPolicy} from "./services/iam";
 import {getApiGatewayResources} from "./services/apiGateway";
 
 export class modakInfrastructureStack extends cdk.Stack {
@@ -15,7 +15,7 @@ export class modakInfrastructureStack extends cdk.Stack {
             lessonsRoute,
             userRoute,
             friendsRoute
-        } = getApiGatewayResources(this, env, {});
+        } = getApiGatewayResources(this, env);
 
         // LAMBDAS
 
@@ -40,5 +40,9 @@ export class modakInfrastructureStack extends cdk.Stack {
             userLessons,
         } = lambdas;
 
+        Object.keys(lambdas).forEach((lambdaFunctionKey: string) => {
+            const lambdaFunction = lambdas[lambdaFunctionKey];
+            lambdaFunction.addToRolePolicy(getIAMPolicy(["dynamodb:*"]));
+        })
     }
 }
