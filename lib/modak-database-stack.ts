@@ -51,30 +51,13 @@ export class modakDatabaseStack extends cdk.Stack {
             sortKey: {name: 'PK', type: dynamoDb.AttributeType.STRING},
             projectionType: dynamoDb.ProjectionType.ALL,
         });
-        const seederStack = new Stack(scope, 'seeder-stack');
-        new Seeder(seederStack, 'seeder', {
-        table,
-        setup: [
-            { PK: 'USER', SK: 'USER#Mark', dob: '1014589797', gender: 'Male', role: 'Student' },
-            { PK: 'USER', SK: 'USER#Jody', dob: '709424997', gender: 'Male', role: 'Student' },
-            { PK: 'USER', SK: 'USER#Rachel', dob: '937175453', gender: 'Female', role: 'Student' },
-            { PK: 'USER', SK: 'USER#Rachel', dob: '937175453', gender: 'Female', role: 'Student' },
-            { PK: 'FRIENDS#Rachel', SK: 'USER#Jody', GSI1: 'Friendships' },
-            { PK: 'FRIENDS#Jody', SK: 'USER#Mark', GSI1: 'Friendships' },
-            { PK: 'FRIENDS#Jody', SK: 'USER#Rachel', GSI1: 'Friendships' },
-            { PK: 'FRIENDS#Mark', SK: 'USER#Jody', GSI1: 'Friendships' },
-            { PK: 'LESSONS', SK: 'LESSON#DEBATE#1'},
-            { PK: 'LESSONS', SK: 'LESSON#Spanish#1'},
-            { PK: 'LESSONS', SK: 'LESSON#Spanish#2'},
-            { PK: 'LESSON#DEBATE#1', SK: 'USER#Mark'},
-            { PK: 'LESSON#Spanish#1', SK: 'USER#Rachel'},
-            { PK: 'LESSON#Spanish#2', SK: 'USER#Rachel'},
-            { PK: 'LESSON#Spanish#2', SK: 'USER#Mark'}
-        ],
-        teardown: [],
-        refreshOnUpdate: true,
+
+        new Seeder(this, 'seeder', {
+            table,
+            setup: require ("./seeders/test.json"),
+            teardown: [],
+            refreshOnUpdate: true,
         });
-        seederStack.addDependency(this);
 
     }
 }
