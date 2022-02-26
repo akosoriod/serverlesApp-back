@@ -47,12 +47,14 @@ export class modakDatabaseStack extends cdk.Stack {
             sortKey: {name: 'PK', type: dynamoDb.AttributeType.STRING},
             projectionType: dynamoDb.ProjectionType.ALL,
         });
-        new Seeder(this, "seeders", {
-            table: table,
+
+        const seederStack = new Stack(scope, 'seeder-stack');
+        new Seeder(seederStack, 'seeder', {
+            table,
             setup: require("./seeders/seeders.json"),
             teardown: [],
-            refreshOnUpdate: false  // runs setup and teardown on every update, default false
+            refreshOnUpdate: true,
         });
-
+        seederStack.addDependency(this);
     }
 }

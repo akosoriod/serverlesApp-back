@@ -2,7 +2,7 @@ import {CodePipeline, CodePipelineSource, ShellStep} from "@aws-cdk/pipelines";
 import * as codeCommit from "@aws-cdk/aws-codecommit";
 import {Construct, Stack, StackProps, Stage, StageProps} from '@aws-cdk/core';
 import {modakInfrastructureStack} from "./modak-infrastructure-stack";
-import {modakDatabaseStack} from "./modak-database-stack";
+import {modakDatabaseStack, modakSeedersStack} from "./modak-database-stack";
 
 
 class modakInfrastructureStage extends Stage {
@@ -16,6 +16,15 @@ class modakInfrastructureStage extends Stage {
 }
 
 class modakDatabaseStage extends Stage {
+
+    constructor(scope: Construct, id: string, env: any, props?: StageProps) {
+        super(scope, id, props);
+
+        const Stack = new modakDatabaseStack(this, env.STACK_NAME, env);
+
+    }
+}
+class modakSeedersStage extends Stage {
 
     constructor(scope: Construct, id: string, env: any, props?: StageProps) {
         super(scope, id, props);
