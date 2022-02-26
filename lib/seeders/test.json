@@ -4,6 +4,7 @@
         "SK": "USER#Mark",
         "dob": "1014589797",
         "gender": "Male",
+        "status": "active",
         "role": "Student"
     },
     {
@@ -11,6 +12,7 @@
         "SK": "USER#Jody",
         "dob": "709424997",
         "gender": "Male",
+        "status": "active",
         "role": "Student"
     },
     {
@@ -18,13 +20,7 @@
         "SK": "USER#Rachel",
         "dob": "937175453",
         "gender": "Female",
-        "role": "Student"
-    },
-    {
-        "PK": "USER",
-        "SK": "USER#Rachel",
-        "dob": "937175453",
-        "gender": "Female",
+        "status": "active",
         "role": "Student"
     },
     {

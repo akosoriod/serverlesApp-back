@@ -3,7 +3,7 @@ import {App} from '@aws-cdk/core';
 import {modakPipelineStack} from "../lib/modak-pipeline-stack";
 import {modakInfrastructureStack} from "../lib/modak-infrastructure-stack";
 import {modakDatabaseStack} from "../lib/modak-database-stack";
-import {envDevelopment, envStaging, envMaster} from "./env";
+import {envLocal,envDevelopment, envStaging, envMaster} from "./env";
 
 
 const app = new App();
