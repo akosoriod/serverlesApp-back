@@ -8,10 +8,9 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
         let res:any = await userlessons(username);
         return getResponse({
             statusCode: 200,
-            body: {
+            body:  JSON.stringify({
                 res
-
-            }
+            })
         })
     }catch (error){
         return getResponse({error})

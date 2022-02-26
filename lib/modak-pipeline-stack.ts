@@ -14,7 +14,7 @@ class modakInfrastructureStage extends Stage {
 
     }
 }
-
+/*
 class modakDatabaseStage extends Stage {
 
     constructor(scope: Construct, id: string, env: any, props?: StageProps) {
@@ -24,6 +24,7 @@ class modakDatabaseStage extends Stage {
 
     }
 }
+*/
 
 
 export class modakPipelineStack extends Stack {
