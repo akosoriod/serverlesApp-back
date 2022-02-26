@@ -122,10 +122,10 @@ export const getLambdas = (
         {baseRoute: opt.routes.friendsRoute, path: 'friends', method: "GET"}
     )
 
-    const users = () => getNodeLambdaFunction(
+    const user = () => getNodeLambdaFunction(
         stack,
-        "users",
-        "user/users.ts",
+        "user",
+        "user/user.ts",
         env,
         {
             environment: {
