@@ -1,14 +1,15 @@
 import { APIGatewayProxyEvent, APIGatewayProxyHandler } from "aws-lambda"
-import { userInfo } from "../../entities/user"
+import { userlessons } from "../../entities/lessons"
 import { getResponse } from "../../helpers/lambdaResponseHelper"
 
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
     try{
-        //let userData:any = await userInfo(user.username);
+        const username = event?.pathParameters?.username || '';
+        let res:any = await userlessons(username);
         return getResponse({
             statusCode: 200,
             body: {
-                msg:"user lesssons"
+                res
 
             }
         })

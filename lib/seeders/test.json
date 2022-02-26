@@ -30,22 +30,22 @@
     {
         "PK": "FRIENDS#Rachel",
         "SK": "USER#Jody",
-        "GSI1": "Friendships"
+        "GSI1": "FRIENDSHIPS"
     },
     {
         "PK": "FRIENDS#Jody",
         "SK": "USER#Mark",
-        "GSI1": "Friendships"
+        "GSI1": "FRIENDSHIPS"
     },
     {
         "PK": "FRIENDS#Jody",
         "SK": "USER#Rachel",
-        "GSI1": "Friendships"
+        "GSI1": "FRIENDSHIPS"
     },
     {
         "PK": "FRIENDS#Mark",
         "SK": "USER#Jody",
-        "GSI1": "Friendships"
+        "GSI1": "FRIENDSHIPS"
     },
     {
         "PK": "LESSONS",

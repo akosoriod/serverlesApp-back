@@ -53,7 +53,7 @@ export class modakDatabaseStack extends cdk.Stack {
         });
 
         new Seeder(this, 'seeder', {
-            table,
+            table: table,
             setup: require ("./seeders/test.json"),
             teardown: [],
             refreshOnUpdate: true,
