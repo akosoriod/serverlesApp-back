@@ -10,7 +10,8 @@ export class modakDatabaseStack extends cdk.Stack {
         const table = new dynamoDb.Table(this, env.MAIN_TABLE_NAME, {
             tableName: env.MAIN_TABLE_NAME,
             billingMode: dynamoDb.BillingMode.PAY_PER_REQUEST,
-            removalPolicy: env.REMOVAL_POLICY,
+            //removalPolicy: env.REMOVAL_POLICY,
+            removalPolicy:cdk.RemovalPolicy.RETAIN,
             partitionKey: {name: 'PK', type: dynamoDb.AttributeType.STRING},
             sortKey: {name: 'SK', type: dynamoDb.AttributeType.STRING}
         });
@@ -46,11 +47,11 @@ export class modakDatabaseStack extends cdk.Stack {
             sortKey: {name: 'PK', type: dynamoDb.AttributeType.STRING},
             projectionType: dynamoDb.ProjectionType.ALL,
         });
-        new Seeder(this, "test", {
+        new Seeder(this, "seeders", {
             table: table,
-            setup: require("./seeders/test.json"),
+            setup: require("./seeders/seeders.json"),
             teardown: [],
-            refreshOnUpdate: true  // runs setup and teardown on every update, default false
+            refreshOnUpdate: false  // runs setup and teardown on every update, default false
         });
 
     }

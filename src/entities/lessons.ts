@@ -10,11 +10,11 @@ export const userlessons = async (username: string): Promise<any> => {
         KeyConditionExpression: "#PK = :pk  AND begins_with(#att, :att)",
         ExpressionAttributeValues: {
             ":pk": "USER#" + username,
-            "#att": "LESSONS"
+            ":att": "LESSONS"
         },
         ExpressionAttributeNames: {
-            "#PK": "PK",
-            "#SK": "SK",
+            "#PK": "SK",
+            "#att": "PK"
         },
     }
     try {

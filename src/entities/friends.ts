@@ -12,7 +12,7 @@ export const allfriendships = async (): Promise<any> => {
         ":pk": "FRIENDSHIPS"
     },
     ExpressionAttributeNames: {
-        "#PK": "PK"
+        "#PK": "GSI1"
     },
 }
   try {
@@ -27,7 +27,7 @@ export const allfriendships = async (): Promise<any> => {
 export const userFriends = async (username:string): Promise<any> => {
     const params: IParams = {
         TableName: TABLE_NAME,
-        KeyConditionExpression: "#PK:pk ",
+        KeyConditionExpression: "#PK = :pk ",
         ExpressionAttributeValues: {
             ":pk": "FRIENDS#" + username
         },
