@@ -33,6 +33,7 @@ export class modakInfrastructureStack extends cdk.Stack {
             });
 
         const {
+            allUsers,
             friends,
             user,
             userFriends,

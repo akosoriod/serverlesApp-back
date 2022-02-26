@@ -108,7 +108,31 @@ export const getLambdas = (
     opt: any
 ): { [key: string]: NodejsFunction } => {
 
-     
+    const user = () => getNodeLambdaFunction(
+        stack,
+        "user",
+        "user/user.ts",
+        env,
+        {
+            environment: {
+                TABLE_NAME: env.MAIN_TABLE_NAME,
+            }
+        },
+        {baseRoute: opt.routes.userRoute, path: '{username}', method: "GET"}
+    )
+    const allUsers = () => getNodeLambdaFunction(
+        stack,
+        "user",
+        "user/users.ts",
+        env,
+        {
+            environment: {
+                TABLE_NAME: env.MAIN_TABLE_NAME,
+            }
+        },
+        {baseRoute: opt.routes.userRoute, path: 'all', method: "GET"}
+    )
+
     const friends = () => getNodeLambdaFunction(
         stack,
         "friends",
@@ -122,21 +146,6 @@ export const getLambdas = (
         {baseRoute: opt.routes.friendsRoute, path: 'all', method: "GET"}
     )
 
-    const user = () => getNodeLambdaFunction(
-        stack,
-        "user",
-        "user/user.ts",
-        env,
-        {
-            environment: {
-                TABLE_NAME: env.MAIN_TABLE_NAME,
-            }
-        },
-        {baseRoute: opt.routes.userRoute, path: '{username}', method: "GET"}
-    )
-
-
-    
     const userFriends = () => getNodeLambdaFunction(
         stack,
         "userFriends",
@@ -178,6 +187,7 @@ export const getLambdas = (
     )
  
     const allLambdas: { [key: string]: () => NodejsFunction } = {
+        allUsers,
         friends,
         user,
         userFriends,
