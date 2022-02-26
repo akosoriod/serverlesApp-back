@@ -10,14 +10,9 @@ export class modakDatabaseStack extends cdk.Stack {
         const table = new dynamoDb.Table(this, env.MAIN_TABLE_NAME, {
             tableName: env.MAIN_TABLE_NAME,
             billingMode: dynamoDb.BillingMode.PAY_PER_REQUEST,
-            // billingMode: dynamoDb.BillingMode.PROVISIONED,
-            // readCapacity: 1,
-            // writeCapacity: 1,
-            // removalPolicy: cdk.RemovalPolicy.DESTROY,
-            removalPolicy: cdk.RemovalPolicy.DESTROY,
+            removalPolicy: env.REMOVAL_POLICY,
             partitionKey: {name: 'PK', type: dynamoDb.AttributeType.STRING},
-            sortKey: {name: 'SK', type: dynamoDb.AttributeType.STRING},
-            // pointInTimeRecovery: true,
+            sortKey: {name: 'SK', type: dynamoDb.AttributeType.STRING}
         });
         table.addLocalSecondaryIndex({
             indexName: "dob",

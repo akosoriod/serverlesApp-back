@@ -1,3 +1,6 @@
+import * as cdk from "@aws-cdk/core";
+
+
 const getEnvVariables = (dependentVariables: any) => {
   const {
       PROJECT_ENVIRONMENT
@@ -6,7 +9,16 @@ const getEnvVariables = (dependentVariables: any) => {
   const PROJECT_NAME = "modak";
   const PROJECT_VERSION = 1;
 
-  const AWS_ACCOUNT = '322889881075';
+  let AWS_ACCOUNT;
+  switch (PROJECT_ENVIRONMENT) {
+      case 'local':
+          AWS_ACCOUNT = '000000000000';
+          break;
+      default:
+          AWS_ACCOUNT = '322889881075'
+          break;
+  }
+
   const AWS_CURRENT_REGION = 'us-east-1';
 
   const EMAIL = "test@mail.com"
@@ -43,6 +55,14 @@ const getEnvVariables = (dependentVariables: any) => {
       region: AWS_CURRENT_REGION,
   }
 
+  let REMOVAL_POLICY;
+  switch (PROJECT_ENVIRONMENT) {
+      case 'master':
+          REMOVAL_POLICY = cdk.RemovalPolicy.RETAIN;
+          break;
+      default:
+          REMOVAL_POLICY = cdk.RemovalPolicy.DESTROY;
+  }
   return {
       PROJECT_ENVIRONMENT,
       PROJECT_NAME,
@@ -57,10 +77,17 @@ const getEnvVariables = (dependentVariables: any) => {
       API_NAME,
       API_STAGE_NAME,
       STACK_NAME,
-      AWS_ENVIRONMENT
+      AWS_ENVIRONMENT,
+      REMOVAL_POLICY
   }
 
 }
+
+const localDependentVariables = {
+    PROJECT_ENVIRONMENT: "local"
+}
+
+export const envLocal = getEnvVariables(localDependentVariables);
 
 const developmentDependentVariables = {
   PROJECT_ENVIRONMENT: "development",

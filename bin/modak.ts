@@ -8,6 +8,21 @@ import {envDevelopment, envStaging, envMaster} from "./env";
 
 const app = new App();
 
+// LOCAL
+/*
+new modakDatabaseStack(app, `${envLocal.PROJECT_NAME}-V${envLocal.PROJECT_VERSION}-DatabaseStack-local`, envLocal, {
+    env: envLocal.AWS_ENVIRONMENT
+});
+
+new modakInfrastructureStack(app, `${envLocal.PROJECT_NAME}-V${envLocal.PROJECT_VERSION}-InfrastructureStack-local`, envLocal, {
+   env: envLocal.AWS_ENVIRONMENT
+});
+
+new modakPipelineStack(app, `${envLocal.PROJECT_NAME}-V${envLocal.PROJECT_VERSION}-PipelineStack-local`, envLocal, {
+   env: envLocal.AWS_ENVIRONMENT
+});
+*/
+
 // DEVELOPMENT
 
 new modakDatabaseStack(app, `${envDevelopment.PROJECT_NAME}-V${envDevelopment.PROJECT_VERSION}-DatabaseStack-development`, envDevelopment, {
