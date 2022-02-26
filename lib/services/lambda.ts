@@ -132,7 +132,7 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.userRoute, path: 'users', method: "GET"}
+        {baseRoute: opt.routes.userRoute, path: 'user', method: "GET"}
     )
 
 
@@ -179,7 +179,7 @@ export const getLambdas = (
  
     const allLambdas: { [key: string]: () => NodejsFunction } = {
         friends,
-        users,
+        user,
         userFriends,
         lessons,
         userLessons

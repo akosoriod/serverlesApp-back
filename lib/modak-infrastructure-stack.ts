@@ -34,7 +34,7 @@ export class modakInfrastructureStack extends cdk.Stack {
 
         const {
             friends,
-            users,
+            user,
             userFriends,
             lessons,
             userLessons,
