@@ -47,11 +47,11 @@ export class modakPipelineStack extends Stack {
             }),
         });
 
-        const DatabaseStage = new modakDatabaseStage(this, `Database`, env, {
+       /* const DatabaseStage = new modakDatabaseStage(this, `Database`, env, {
             env: env.AWS_ENVIRONMENT
         })
 
-        modakPipeline.addStage(DatabaseStage);
+        modakPipeline.addStage(DatabaseStage);*/
 
         const InfrastructureStage = new modakInfrastructureStage(this, `Infrastructure`, env, {
             env: env.AWS_ENVIRONMENT
