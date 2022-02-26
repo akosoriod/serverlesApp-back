@@ -119,7 +119,7 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.friendsRoute, path: 'friends', method: "GET"}
+        {baseRoute: opt.routes.friendsRoute, path: 'all', method: "GET"}
     )
 
     const user = () => getNodeLambdaFunction(
@@ -132,7 +132,7 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.userRoute, path: 'user', method: "GET"}
+        {baseRoute: opt.routes.userRoute, path: '{username}', method: "GET"}
     )
 
 
@@ -147,7 +147,7 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.friendsRoute, path: 'userFriends', method: "GET"}
+        {baseRoute: opt.routes.friendsRoute, path: '{username}', method: "GET"}
     )
     
     const lessons = () => getNodeLambdaFunction(
@@ -160,7 +160,7 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.lessonsRoute, path: 'lessons', method: "GET"}
+        {baseRoute: opt.routes.lessonsRoute, path: 'all', method: "GET"}
     )
 
 
@@ -174,7 +174,7 @@ export const getLambdas = (
                 TABLE_NAME: env.MAIN_TABLE_NAME,
             }
         },
-        {baseRoute: opt.routes.lessonsRoute, path: 'userLessons', method: "GET"}
+        {baseRoute: opt.routes.lessonsRoute, path: '{username}', method: "GET"}
     )
  
     const allLambdas: { [key: string]: () => NodejsFunction } = {
