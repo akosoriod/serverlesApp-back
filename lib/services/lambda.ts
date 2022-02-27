@@ -122,7 +122,7 @@ export const getLambdas = (
     )
     const allUsers = () => getNodeLambdaFunction(
         stack,
-        "user",
+        "allUsers",
         "user/users.ts",
         env,
         {
