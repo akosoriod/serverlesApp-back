@@ -38,7 +38,6 @@ export const allUsers = async (): Promise<any> => {
 
     try {
         users = await queryDB(params, "Not friendships yet");
-        users = await addFriends(users);
         return users;
 
       } catch (error) {
@@ -47,32 +46,3 @@ export const allUsers = async (): Promise<any> => {
       }
   }
 
-  const addFriends = async (users: IResponse): Promise<any> => {
-
-   users.Items.map(async (item: { SK: any; friends: any,frsiends: any }) => {
-        const PK = item.SK.replace('USER#', 'FRIENDS#');
-        const params: IParams = {
-            TableName: TABLE_NAME,
-            KeyConditionExpression: "#PK = :pk AND begins_with(#att, :att)",
-            ExpressionAttributeValues: {
-                ":pk": 'FRIENDS#Mark',
-                ":att": "USER"
-
-            },
-            ExpressionAttributeNames: {
-                "#PK": "PK",
-                "#att": "SK"
-
-            }
-        }
-        try {
-            item.friends = await queryDB(params, "Not friendships yet");
-            item.frsiends = PK;
-          } catch (error) {
-              console.log(error)
-              throw error
-          }
-                
-    });
-    return users;
-}
