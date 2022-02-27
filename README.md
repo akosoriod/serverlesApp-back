@@ -10,4 +10,4 @@
 
  ### Start the Api locally 
 - `cdk synth TPChain-V1-InfrastructureStack-development --no-staging > template.yaml` Emit the synthesized CloudFormation template
-- `sam local start-api -l logs.log --docker-network dynamo_local_tpchainNetwork` Start Api with logs file and docker network
+- `sam local start-api -l logs.log  Start Api with logs file and docker network
