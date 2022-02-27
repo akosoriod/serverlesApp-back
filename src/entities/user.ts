@@ -47,7 +47,7 @@ export const allUsers = async (): Promise<any> => {
 
   const addFriends = async (users: IResponse): Promise<any> => {
 
-    users.Items.map((item: { SK: any; friends: any }) => {
+   users.Items.map(async(item: { SK: any; friends: any }) => {
         const params: IParams = {
             TableName: TABLE_NAME,
             IndexName: "Inverted",
@@ -70,7 +70,7 @@ export const allUsers = async (): Promise<any> => {
               throw error
           }
                 
-    }); 
+    });
     
     return users;
 }
