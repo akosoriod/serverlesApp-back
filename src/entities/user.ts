@@ -1,5 +1,6 @@
 import { getDB,  executeTransactWrite,getClient, queryDB } from "../helpers/dynamoHelper";
 import { IParams, IResponse } from "../interfaces/IParams";
+import { userlessons } from "./lessons";
 
 const TABLE_NAME = process.env.TABLE_NAME || "";
 
@@ -34,6 +35,7 @@ export const allUsers = async (): Promise<any> => {
             "#PK": "PK"
         },
     }
+
     try {
         users = await queryDB(params, "Not friendships yet");
         users = await addFriends(users);
@@ -47,30 +49,30 @@ export const allUsers = async (): Promise<any> => {
 
   const addFriends = async (users: IResponse): Promise<any> => {
 
-   users.Items.map(async(item: { SK: any; friends: any }) => {
+   users.Items.map(async (item: { SK: any; friends: any,frsiends: any }) => {
+        const PK = item.SK.replace('USER#', 'FRIENDS#');
         const params: IParams = {
             TableName: TABLE_NAME,
-            IndexName: "Inverted",
             KeyConditionExpression: "#PK = :pk AND begins_with(#att, :att)",
             ExpressionAttributeValues: {
-                ":pk": item.SK,
-                ":att": "FRIENDS"
+                ":pk": 'FRIENDS#Mark',
+                ":att": "USER"
 
             },
             ExpressionAttributeNames: {
-                "#PK": "SK",
-                "#att": "PK"
+                "#PK": "PK",
+                "#att": "SK"
 
-            },
+            }
         }
         try {
             item.friends = await queryDB(params, "Not friendships yet");
+            item.frsiends = PK;
           } catch (error) {
               console.log(error)
               throw error
           }
                 
     });
-    
     return users;
 }

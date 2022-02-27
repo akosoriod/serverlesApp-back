@@ -1,0 +1,457 @@
+Resources:
+  modakV1Apidevelopment96DA8F45:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: modak-V1-Api-development
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Resource
+  modakV1ApidevelopmentCloudWatchRoleF02FD3FC:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/CloudWatchRole/Resource
+  modakV1ApidevelopmentAccount51253183:
+    Type: AWS::ApiGateway::Account
+    Properties:
+      CloudWatchRoleArn:
+        Fn::GetAtt:
+          - modakV1ApidevelopmentCloudWatchRoleF02FD3FC
+          - Arn
+    DependsOn:
+      - modakV1Apidevelopment96DA8F45
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Account
+  modakV1ApidevelopmentDeployment908D1CA0c7a1c26cc4cc7d0e76d734fc390e592c:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      Description: Automatically created by the RestApi construct
+    DependsOn:
+      - modakV1ApidevelopmentOPTIONSC0D141A6
+      - modakV1Apidevelopmentv1friendsOPTIONS417F2987
+      - modakV1Apidevelopmentv1friends72BA6DFD
+      - modakV1Apidevelopmentv1lessonOPTIONS93A03162
+      - modakV1Apidevelopmentv1lesson6FB42B99
+      - modakV1Apidevelopmentv1OPTIONS0EA315CD
+      - modakV1Apidevelopmentv18E6B475C
+      - modakV1Apidevelopmentv1userallGET21B1E783
+      - modakV1Apidevelopmentv1userallOPTIONS050C5FBA
+      - modakV1Apidevelopmentv1userall4967238E
+      - modakV1Apidevelopmentv1userOPTIONS66D3DB68
+      - modakV1Apidevelopmentv1user6472DB54
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Deployment/Resource
+  modakV1ApidevelopmentDeploymentStagedevelopment4BA90F53:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      DeploymentId:
+        Ref: modakV1ApidevelopmentDeployment908D1CA0c7a1c26cc4cc7d0e76d734fc390e592c
+      StageName: development
+    DependsOn:
+      - modakV1ApidevelopmentAccount51253183
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/DeploymentStage.development/Resource
+  modakV1ApidevelopmentOPTIONSC0D141A6:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Fn::GetAtt:
+          - modakV1Apidevelopment96DA8F45
+          - RootResourceId
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/OPTIONS/Resource
+  modakV1Apidevelopmentv18E6B475C:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - modakV1Apidevelopment96DA8F45
+          - RootResourceId
+      PathPart: v1
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/Resource
+  modakV1Apidevelopmentv1OPTIONS0EA315CD:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: modakV1Apidevelopmentv18E6B475C
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/OPTIONS/Resource
+  modakV1Apidevelopmentv1lesson6FB42B99:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: modakV1Apidevelopmentv18E6B475C
+      PathPart: lesson
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/lesson/Resource
+  modakV1Apidevelopmentv1lessonOPTIONS93A03162:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: modakV1Apidevelopmentv1lesson6FB42B99
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/lesson/OPTIONS/Resource
+  modakV1Apidevelopmentv1user6472DB54:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: modakV1Apidevelopmentv18E6B475C
+      PathPart: user
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/user/Resource
+  modakV1Apidevelopmentv1userOPTIONS66D3DB68:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: modakV1Apidevelopmentv1user6472DB54
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/user/OPTIONS/Resource
+  modakV1Apidevelopmentv1userall4967238E:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: modakV1Apidevelopmentv1user6472DB54
+      PathPart: all
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/user/all/Resource
+  modakV1Apidevelopmentv1userallOPTIONS050C5FBA:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: modakV1Apidevelopmentv1userall4967238E
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/user/all/OPTIONS/Resource
+  modakV1Apidevelopmentv1userallGETApiPermissionmodakV1InfrastructureStackdevelopmentmodakV1Apidevelopment04FB1B78GETv1userall985F0E4A:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - allUsersC12A8EC1
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:us-east-1:322889881075:"
+            - Ref: modakV1Apidevelopment96DA8F45
+            - /
+            - Ref: modakV1ApidevelopmentDeploymentStagedevelopment4BA90F53
+            - /GET/v1/user/all
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/user/all/GET/ApiPermission.modakV1InfrastructureStackdevelopmentmodakV1Apidevelopment04FB1B78.GET..v1.user.all
+  modakV1Apidevelopmentv1userallGETApiPermissionTestmodakV1InfrastructureStackdevelopmentmodakV1Apidevelopment04FB1B78GETv1userallEB67E304:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - allUsersC12A8EC1
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:us-east-1:322889881075:"
+            - Ref: modakV1Apidevelopment96DA8F45
+            - /test-invoke-stage/GET/v1/user/all
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/user/all/GET/ApiPermission.Test.modakV1InfrastructureStackdevelopmentmodakV1Apidevelopment04FB1B78.GET..v1.user.all
+  modakV1Apidevelopmentv1userallGET21B1E783:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: modakV1Apidevelopmentv1userall4967238E
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :apigateway:us-east-1:lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - allUsersC12A8EC1
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/user/all/GET/Resource
+  modakV1Apidevelopmentv1friends72BA6DFD:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: modakV1Apidevelopmentv18E6B475C
+      PathPart: friends
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/friends/Resource
+  modakV1Apidevelopmentv1friendsOPTIONS417F2987:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: modakV1Apidevelopmentv1friends72BA6DFD
+      RestApiId:
+        Ref: modakV1Apidevelopment96DA8F45
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/modak-V1-Api-development/Default/v1/friends/OPTIONS/Resource
+  allUsersServiceRoleE93C3899:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/allUsers/ServiceRole/Resource
+  allUsersServiceRoleDefaultPolicy08AB9974:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: dynamodb:*
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: allUsersServiceRoleDefaultPolicy08AB9974
+      Roles:
+        - Ref: allUsersServiceRoleE93C3899
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/allUsers/ServiceRole/DefaultPolicy/Resource
+  allUsersC12A8EC1:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket: cdk-hnb659fds-assets-322889881075-us-east-1
+        S3Key: 95fe5b9dc2c22d3b5af28068f32b412a110061bdd14fa1ed2428137f37b7ad16.zip
+      Role:
+        Fn::GetAtt:
+          - allUsersServiceRoleE93C3899
+          - Arn
+      Environment:
+        Variables:
+          TABLE_NAME: modak-V1-MainTable-development
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+      FunctionName: modak-V1-allUsers-development
+      Handler: index.handler
+      MemorySize: 128
+      Runtime: nodejs14.x
+      Timeout: 15
+    DependsOn:
+      - allUsersServiceRoleDefaultPolicy08AB9974
+      - allUsersServiceRoleE93C3899
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/allUsers/Resource
+      aws:asset:path: E:\akosoriod\Documents\Serverless\modak\modak-back\cdk.out\asset.95fe5b9dc2c22d3b5af28068f32b412a110061bdd14fa1ed2428137f37b7ad16
+      aws:asset:is-bundled: true
+      aws:asset:property: Code
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/1VQy07EMAz8lr2nXioWcaW7K248tHxBSE1JH0lVO6yqqP9O3G4kOHk8M/E4LqE8PMDd7klfqTB1t4/GTwjxg7Xp1OnLvQUeA6uKCDmRjXWNOnlHPAXDYrgg+TAZXJSMiHq0jWa86hlikrga7c2VYWWMD47VGcfezwO6dcyfTmJQuA3kgKMmVC/I374W8Yay+n8Vq4cU7/uNlvrue2tmaTe0qF4Pn7WGKBROgyWy3onhOTjDCWdL4XyNLcHrWrKq6L7QchWC9Tiph2MwHbIsuixKXkFL+5/yAOUjlLuWrC2m9HU7IFy2+gtblhl2gAEAAA==
+    Metadata:
+      aws:cdk:path: modak-V1-InfrastructureStack-development/CDKMetadata/Default
+Outputs:
+  modakV1ApidevelopmentEndpointAD3FBF7E:
+    Value:
+      Fn::Join:
+        - ""
+        - - https://
+          - Ref: modakV1Apidevelopment96DA8F45
+          - .execute-api.us-east-1.
+          - Ref: AWS::URLSuffix
+          - /
+          - Ref: modakV1ApidevelopmentDeploymentStagedevelopment4BA90F53
+          - /
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+Rules:
+  CheckBootstrapVersion:
+    Assertions:
+      - Assert:
+          Fn::Not:
+            - Fn::Contains:
+                - - "1"
+                  - "2"
+                  - "3"
+                  - "4"
+                  - "5"
+                - Ref: BootstrapVersion
+        AssertDescription: CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.
+
